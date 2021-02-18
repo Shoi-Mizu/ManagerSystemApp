@@ -12,41 +12,8 @@
 
 
   <servlet>
-    <servlet-name>first</servlet-name>
-    <servlet-class>servlet.FirstServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>first</servlet-name>
-    <url-pattern>/first</url-pattern>
-  </servlet-mapping>
-
-
-  <servlet>
-    <servlet-name>new</servlet-name>
-    <servlet-class>servlet.NewTransitionServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>new</servlet-name>
-    <url-pattern>/new</url-pattern>
-  </servlet-mapping>
-
-
-  <servlet>
-    <servlet-name>loginPage</servlet-name>
-    <servlet-class>servlet.LoginTransitionServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>loginPage</servlet-name>
-    <url-pattern>/loginPage</url-pattern>
-  </servlet-mapping>
-
-
-  <servlet>
     <servlet-name>create</servlet-name>
-    <servlet-class>servlet.CreateServlet</servlet-class>
+    <servlet-class>servlet.CreateUserServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
