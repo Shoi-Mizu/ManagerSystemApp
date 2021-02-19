@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.CheckUser;
+import model.CreateUser;
 
 
 public class CreateUserServlet extends HttpServlet {
@@ -29,40 +30,31 @@ public class CreateUserServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		boolean result = false;
-		String name = null;
-		String userPass = null;
+		String errMessage = "";
+		String name = "";
+		String userPass = "";
 
 		request.setCharacterEncoding("utf-8");
 		name = request.getParameter("userName");
 		userPass = request.getParameter("userPass");
+		
 		String forward = "WEB-INF/jsp/new.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
-		if((name == null) || (name.length() < 1)) {
-			request.setAttribute("message", "アカウント名を入力してください");
-			dispatcher.forward(request, response);
-			return;
-		}
-		if((userPass == null) || (userPass.length() < 1)) {
-			request.setAttribute("message", "パスワードを入力してください");
-			dispatcher.forward(request, response);
-			return;
+
+		CheckUser cUser = new CheckUser(name, userPass);
+		errMessage = cUser.userCheck();
+		if(errMessage.equals("")) {
+			CreateUser create = new CreateUser();
+			errMessage = create.create(name, userPass);
 		}
 
-		try {
-			CheckUser cUser = new CheckUser(name, userPass);
-			result = cUser.userCheck();
-		} catch(Exception e) {
-			request.setAttribute("message", "Exception : " + e.getMessage());
-		}
-
-		if(result == true) {
+		if(errMessage.equals("")) {
 			request.setAttribute("userName", name);
 			forward = "WEB-INF/jsp/home.jsp";
 			dispatcher = request.getRequestDispatcher(forward);
 			dispatcher.forward(request, response);
 		} else {
-			request.setAttribute("message", "このアカウント名は既にあります");
+			request.setAttribute("message", errMessage);
 			dispatcher = request.getRequestDispatcher(forward);
 			dispatcher.forward(request, response);
 		}
