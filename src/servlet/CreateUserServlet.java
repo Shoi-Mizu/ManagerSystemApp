@@ -31,28 +31,32 @@ public class CreateUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String errMessage = "";
+		String id = "";
 		String name = "";
 		String userPass = "";
 
 		request.setCharacterEncoding("utf-8");
+		id = request.getParameter("userId");
 		name = request.getParameter("userName");
 		userPass = request.getParameter("userPass");
 		
 		String forward = "WEB-INF/jsp/new.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
 
-		CheckUser cUser = new CheckUser(name, userPass);
-		errMessage = cUser.userCheck();
+		CheckUser cUser = new CheckUser();
+		errMessage = cUser.userCheck(id, name, userPass); //登録情報のチェック
 		if(errMessage.equals("")) {
 			CreateUser create = new CreateUser();
-			errMessage = create.create(name, userPass);
+			errMessage = create.create(id, name, userPass); //ユーザーの登録
 		}
-
+		
+		//登録成功したらユーザーのログインページへ移動
 		if(errMessage.equals("")) {
-			request.setAttribute("userName", name);
-			forward = "WEB-INF/jsp/home.jsp";
+			request.setAttribute("message", "登録されました！ログインしてください！");
+			forward = "WEB-INF/jsp/login.jsp";
 			dispatcher = request.getRequestDispatcher(forward);
 			dispatcher.forward(request, response);
+		//やり直し
 		} else {
 			request.setAttribute("message", errMessage);
 			dispatcher = request.getRequestDispatcher(forward);
