@@ -4,23 +4,21 @@ import java.sql.SQLException;
 
 import dao.UserDAO;
 
-public class CheckUser {
-	String name;
-	String userPass;
-	
-	public CheckUser(String name, String userPass) {
-		this.name = name;
-		this.userPass = userPass;
-	}
-	
-	public String userCheck() {
-		String errMessage = "";
+public class CheckUser {	
+	public String userCheck(String id, String name, String userPass) {
 		//空欄チェック
+		if(id == null) {
+			return "ユーザーIDを入力してください";
+		} else if(id.isEmpty()) {
+			return "ユーザーIDを入力してください";			
+		}
+		
 		if(name == null) {
 			return "名前を入力してください";
 		} else if(name.isEmpty()) {
-			return "名前を入力してください";			
+			return "名前を入力してください";
 		}
+		
 		if(userPass == null) {
 			return "パスワードを入力してください";
 		} else if(userPass.isEmpty()) {
@@ -30,11 +28,13 @@ public class CheckUser {
 		//重複チェック
 		try {
 			UserDAO uDao = new UserDAO();
-			errMessage = uDao.checkName(name);
+			if(uDao.checkId(id)) {
+				return "そのIDはすでに使われています";
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			return e.getMessage();
+			return "システムエラーが発生しました。もう一度操作をやり直してください";
 		}
-		return errMessage;
+		return "";
 	}
 }
