@@ -14,6 +14,9 @@
 	<%= message %>
 	<p></p>
 	<form action="create" method="post">
+	<label for="userId">ユーザーID</label>
+	<input type="text" name="userId">
+	<p></p>
 	<label for="userName">アカウント名</label>
 	<input type="text" name="userName">
 	<p></p>
