@@ -14,8 +14,8 @@
 	<%= message %>
 	<p></p>
 	<form action="login" method="post">
-	<label for="userName">アカウント名</label>
-	<input type="text" name="userName">
+	<label for="userId">ユーザーID</label>
+	<input type="text" name="userId">
 	<p></p>
 	<label for="password">パスワード</label>
 	<input type="password" name="userPass">
