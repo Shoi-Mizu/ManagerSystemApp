@@ -32,4 +32,13 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>admission</servlet-name>
+    <servlet-class>servlet.AdmissionServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>admission</servlet-name>
+    <url-pattern>/admission</url-pattern>
+  </servlet-mapping>
 </web-app>
