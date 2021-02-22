@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class UserBean implements Serializable{
-	private String userId;
-	private String name;
-	private String userPass;
+	private String userId; //ユーザーID
+	private String name; //ユーザー名
+	private String userPass; //パスワード
 	
 	public UserBean() {
 	}
