@@ -1,12 +1,15 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.CheckLogin;
 import model.GetUser;
@@ -46,10 +49,17 @@ public class LoginServlet extends HttpServlet {
 		
 		//IDとパスワードが合っていたらマイページへ移動
 		if(errMessage.equals("")) {
+			HttpSession session = request.getSession(); //セッションを取得
+			//ログイン情報
+			Map<String, String> map = new HashMap<String, String>();
 			GetUser gUser = new GetUser();
-			name = gUser.getUserName(id);
+			name = gUser.getUserName(id); //IDを検索してユーザー名を取得
 			UserBean uBean = new UserBean(id, name, userPass);
-			request.setAttribute("user", uBean);
+			map.put("id", uBean.getUserId());
+			//ログイン情報をセッションに保存
+			session.setAttribute("userInfo", map);
+			session.setAttribute("user", uBean);
+			
 			forward = "WEB-INF/jsp/home.jsp";
 			dispatcher = request.getRequestDispatcher(forward);
 			dispatcher.forward(request, response);
