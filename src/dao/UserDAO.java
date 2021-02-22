@@ -7,13 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO {
+	private String url = "jdbc:mysql://localhost:3306/managerDB";
+	private String user = "root";
+	private String password = "access01";
 	
 	//IDを確認する(登録してあればtrue)
 	public boolean checkId(String id) throws ClassNotFoundException,SQLException{
 		Connection connection = null;
-		String url = "jdbc:mysql://localhost:3306/managerDB";
-		String user = "root";
-		String password = "access01";
 
 		String sql = "SELECT id FROM users WHERE id=?";
 		try {
@@ -36,9 +36,6 @@ public class UserDAO {
 	//パスワードを確認する(登録してあればtrue)
 	public boolean checkPassword(String userPass) throws ClassNotFoundException,SQLException{
 		Connection connection = null;
-		String url = "jdbc:mysql://localhost:3306/managerDB";
-		String user = "root";
-		String password = "access01";
 		
 		String sql = "SELECT password FROM users WHERE password=?";
 		try {
@@ -62,9 +59,6 @@ public class UserDAO {
 	//ユーザーを登録する
 	public void createUser(String id, String name, String userPass) throws ClassNotFoundException, SQLException{
 		Connection connection = null;
-		String url = "jdbc:mysql://localhost:3306/managerDB";
-		String user = "root";
-		String password = "access01";
 		
 		String sql = "INSERT INTO users (id, name, password) VALUES (?, ?, ?)";
 		try {
@@ -86,9 +80,6 @@ public class UserDAO {
 	public String getUserName(String id) throws ClassNotFoundException, SQLException{
 		String name = "";
 		Connection connection = null;
-		String url = "jdbc:mysql://localhost:3306/managerDB";
-		String user = "root";
-		String password = "access01";
 		
 		String sql = "SELECT * FROM users WHERE id=?";
 		try {
