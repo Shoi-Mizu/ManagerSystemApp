@@ -31,7 +31,19 @@
     <servlet-name>login</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
+  
 
+  <servlet>
+    <servlet-name>home</servlet-name>
+    <servlet-class>servlet.HomeTransitionServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>home</servlet-name>
+    <url-pattern>/home</url-pattern>
+  </servlet-mapping>
+  
+  
   <servlet>
     <servlet-name>admission</servlet-name>
     <servlet-class>servlet.AdmissionServlet</servlet-class>
@@ -41,4 +53,18 @@
     <servlet-name>admission</servlet-name>
     <url-pattern>/admission</url-pattern>
   </servlet-mapping>
+
+  
+  <servlet>
+    <servlet-name>leaving</servlet-name>
+    <servlet-class>servlet.LeavingServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>leaving</servlet-name>
+    <url-pattern>/leaving</url-pattern>
+  </servlet-mapping>
+  
+  
 </web-app>
+
