@@ -8,18 +8,24 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
 public class Admission {
-	public TimeBean canAdmission(String id, Date date) throws ClassNotFoundException, SQLException {
+	//出勤登録
+	public boolean canAdmission(String id, Date date, TimeBean tBean) throws ClassNotFoundException, SQLException {
+		//日時のフォーマットを整える
 		SimpleDateFormat dfD = new SimpleDateFormat("yyyy/MM/dd");
 		String day = dfD.format(date);
-		SimpleDateFormat dfA = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		String admission = dfA.format(date);		
+		SimpleDateFormat dfA = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		String admission = dfA.format(date);
+		
 		TimeDAO tDao = new TimeDAO();
-		if(!tDao.checkAdmission(id, day)) {
+		//出勤しているか確認
+		if(!tDao.checkAdmission(id, day, tBean)) {
 			tDao.doAdmission(id, day, admission);
+			tBean.setId(id);
+			tBean.setDay(day);
+			tBean.setAdmission(admission);
 		} else {
-			return null;
+			return false;
 		}
-		TimeBean tBean = new TimeBean(id, day, admission, "");
-		return tBean;
+		return true;
 	}
 }
