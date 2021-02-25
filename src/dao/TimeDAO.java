@@ -78,7 +78,8 @@ public class TimeDAO {
 				if(rs.getString("leaving") == null) {
 					return false;
 				} else {
-					tBean.setLeaving(rs.getString("leaving"));					
+					tBean.setLeaving(rs.getString("leaving"));
+					return true;
 				}
 			}
 		} finally { 
@@ -87,7 +88,7 @@ public class TimeDAO {
 			}
 		}
 		
-		return true;
+		return false;
 	}
 	
 	//退勤登録する
