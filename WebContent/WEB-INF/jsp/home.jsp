@@ -24,8 +24,8 @@
 	<p></p>
 	
 	<form action="admission" method="post">
-	<input type="hidden" name="logind" value="<%= logind %>">	
-	<button type="submit" name=>出勤する</button>
+		<input type="hidden" name="logind" value="<%= logind %>">	
+		<button type="submit">出勤する</button>
 	</form>
 	<% if(time != null){ %>
 		<% if(!(time.getAdmission() == null)){ %>
@@ -37,8 +37,8 @@
 	<p></p>
 	
 	<form action="leaving" method="post">
-	<input type="hidden" name="logind" value="<%= logind %>">	
-	<button type="submit">退勤する</button>
+		<input type="hidden" name="logind" value="<%= logind %>">	
+		<button type="submit">退勤する</button>
 	</form>
 	<% if(time != null){ %>
 		<% if(!(time.getLeaving() == null)){ %>
@@ -49,8 +49,12 @@
 	<% } %>
 	<p></p>
 	
-	<a href="/">勤怠表示</a>
+	<form action="attendance" method="post">
+		<input type="hidden" name="logind" value="<%= logind %>">
+		<input type="submit" name="display" value="勤怠表示">
+	</form>
 	<p></p>
+	
 	<a href="/">アカウントを削除する</a>
 	<p></p>
 	<a href="/ManagerSystem">トップページに戻る</a>
