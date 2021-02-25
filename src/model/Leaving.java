@@ -12,7 +12,7 @@ public class Leaving {
 			//日時のフォーマットを整える
 			SimpleDateFormat dfD = new SimpleDateFormat("yyyy/MM/dd");
 			String day = dfD.format(date);
-			SimpleDateFormat dfL = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+			SimpleDateFormat dfL = new SimpleDateFormat("HH:mm");
 			String leaving = dfL.format(date);
 			
 			TimeDAO tDao = new TimeDAO();

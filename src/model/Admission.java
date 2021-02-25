@@ -13,7 +13,7 @@ public class Admission {
 		//日時のフォーマットを整える
 		SimpleDateFormat dfD = new SimpleDateFormat("yyyy/MM/dd");
 		String day = dfD.format(date);
-		SimpleDateFormat dfA = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		SimpleDateFormat dfA = new SimpleDateFormat("HH:mm");
 		String admission = dfA.format(date);
 		
 		TimeDAO tDao = new TimeDAO();
