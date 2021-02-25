@@ -64,7 +64,18 @@
     <servlet-name>leaving</servlet-name>
     <url-pattern>/leaving</url-pattern>
   </servlet-mapping>
+
   
+  <servlet>
+    <servlet-name>attendance</servlet-name>
+    <servlet-class>servlet.AttendanceServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>attendance</servlet-name>
+    <url-pattern>/attendance</url-pattern>
+  </servlet-mapping>
+ 
   
 </web-app>
 
