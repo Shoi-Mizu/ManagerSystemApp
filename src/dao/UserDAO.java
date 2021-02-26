@@ -99,4 +99,79 @@ public class UserDAO {
 		return name;
 	}
 	
+	//ユーザー名を変更する
+	public void updateUserName(String id, String name) throws ClassNotFoundException, SQLException{
+		Connection connection = null;
+		
+		String sql = "UPDATE users SET name=? WHERE id=?";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement statment = connection.prepareStatement(sql);
+			statment.setString(1, name);
+			statment.setString(2, id);
+			statment.executeUpdate();
+		} finally { 
+			if (connection != null) {
+				connection.close();
+			}
+		}
+	}
+
+	//IDを変更する
+	public void updateUserId(String beforId, String afterId) throws ClassNotFoundException, SQLException{
+		Connection connection = null;
+		
+		String sql = "UPDATE users SET id=? WHERE id=?";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement statment = connection.prepareStatement(sql);
+			statment.setString(1, afterId);
+			statment.setString(2, beforId);
+			statment.executeUpdate();
+		} finally { 
+			if (connection != null) {
+				connection.close();
+			}
+		}
+	}
+	
+	//パスワードを変更する
+	public void updateUserPass(String id, String userPass) throws ClassNotFoundException, SQLException{
+		Connection connection = null;
+		
+		String sql = "UPDATE users SET password=? WHERE id=?";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement statment = connection.prepareStatement(sql);
+			statment.setString(1, userPass);
+			statment.setString(2, id);
+			statment.executeUpdate();
+		} finally { 
+			if (connection != null) {
+				connection.close();
+			}
+		}
+	}
+	
+	//ユーザーを削除する
+	public void deleteUser(String id) throws ClassNotFoundException, SQLException{
+		Connection connection = null;
+		
+		String sql = "DELETE FROM users WHERE id=?";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement statment = connection.prepareStatement(sql);
+			statment.setString(1, id);
+			statment.executeUpdate();
+		} finally { 
+			if (connection != null) {
+				connection.close();
+			}
+		}
+	}
+	
 }
