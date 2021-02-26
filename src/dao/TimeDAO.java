@@ -111,5 +111,42 @@ public class TimeDAO {
 		}	
 	}
 	
+	//登録データのIDを書き換える(ユーザー設定でIDを変更した時)
+	public void changeId(String beforeId, String afterId, TimeBean tBean) throws ClassNotFoundException, SQLException {
+		Connection connection = null;
+		
+		String sql = "UPDATE time SET id=? WHERE id=?";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement statment = connection.prepareStatement(sql);
+			statment.setString(1, afterId);
+			statment.setString(2, beforeId);
+			statment.executeUpdate();
+			tBean.setId(afterId);
+		} finally { 
+			if (connection != null) {
+				connection.close();
+			}
+		}			
+	}
+	
+	//勤怠データを削除する
+	public void deleteTime(String id) throws ClassNotFoundException, SQLException{
+		Connection connection = null;
+		
+		String sql = "DELETE FROM time WHERE id=?";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement statment = connection.prepareStatement(sql);
+			statment.setString(1, id);
+			statment.executeUpdate();
+		} finally { 
+			if (connection != null) {
+				connection.close();
+			}
+		}
+	}
 	
 }
