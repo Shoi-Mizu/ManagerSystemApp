@@ -34,34 +34,42 @@ public class LeavingServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");	
 		String forward = "WEB-INF/jsp/leaving.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
+
 		
-		TimeBean tBean = new TimeBean();
-		try {			
-			Leaving leaving = new Leaving();
-			isLeaving = leaving.canLeaving(id, date, tBean); //退勤する
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-			request.setAttribute("errMessage", "システムエラーが発生しました");
-			request.setAttribute("logind", logind);
-			forward = "WEB-INF/jsp/home.jsp";
+		//セッション情報が空ならログアウト(タイムアウト時など)
+		if(user == null) {
+			forward = "WEB-INF/jsp/logout.jsp";
 			dispatcher = request.getRequestDispatcher(forward);
 			dispatcher.forward(request, response);
-		}
-		
-		//退勤登録できたら退勤完了画面に遷移
-		if(isLeaving) {
-			session.setAttribute("tBean", tBean);
-			request.setAttribute("logind", logind);
-			dispatcher.forward(request, response);
-		//既に登録済み、もしくは出勤登録していなかったらホーム画面にエラーメッセージ表示
 		} else {
-			session.setAttribute("tBean", tBean);
-			request.setAttribute("errMessage", "出勤登録がされていないか、もしくは本日は既に退勤しています");
-			request.setAttribute("logind", logind);
-			forward = "WEB-INF/jsp/home.jsp";
-			dispatcher = request.getRequestDispatcher(forward);
-			dispatcher.forward(request, response);
+			TimeBean tBean = new TimeBean();
+			try {			
+				Leaving leaving = new Leaving();
+				isLeaving = leaving.canLeaving(id, date, tBean); //退勤する
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+				request.setAttribute("errMessage", "システムエラーが発生しました");
+				request.setAttribute("logind", logind);
+				forward = "WEB-INF/jsp/home.jsp";
+				dispatcher = request.getRequestDispatcher(forward);
+				dispatcher.forward(request, response);
+			}
 			
+			//退勤登録できたら退勤完了画面に遷移
+			if(isLeaving) {
+				session.setAttribute("tBean", tBean);
+				request.setAttribute("logind", logind);
+				dispatcher.forward(request, response);
+			//既に登録済み、もしくは出勤登録していなかったらホーム画面にエラーメッセージ表示
+			} else {
+				session.setAttribute("tBean", tBean);
+				request.setAttribute("errMessage", "出勤登録がされていないか、もしくは本日は既に退勤しています");
+				request.setAttribute("logind", logind);
+				forward = "WEB-INF/jsp/home.jsp";
+				dispatcher = request.getRequestDispatcher(forward);
+				dispatcher.forward(request, response);
+				
+			}
 		}
 	}
 
