@@ -41,50 +41,58 @@ public class AttendanceServlet extends HttpServlet {
 			id = user.get(logind); //idの取得
 		}
 		
-		
-		//次月または前月を押した場合
-		if(changeMonth != null) {
-			year = Integer.parseInt(stringYear);
-			month = Integer.parseInt(stringMonth);
-			if(changeMonth.equals("before")) {
-				month--;
-				if(month < 0) {
-					month = 11;
-					if(year - 1 < 1) {
-						month = 0;
-					} else {
-						year--;
-					}
-				}
-			} else if(changeMonth.equals("after")) {
-				month++;
-				if(month > 11) {
-					month = 0;
-					year++;
-				}
-			}
-		}
-		
-		CalendarLogic cLogic = new CalendarLogic();
-		week = cLogic.calendarCreate(calendar, year, month); //曜日取得
-		try {
-			Attendance attendance = new Attendance();
-			admission = attendance.getAdmission(calendar, id); //出勤情報取得
-			leaving = attendance.getLeaving(calendar, id); //退勤情報取得
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-		
-		request.setCharacterEncoding("utf-8");
-		request.setAttribute("year", year);
-		request.setAttribute("month", month);
-		request.setAttribute("week", week);
-		request.setAttribute("admission", admission);
-		request.setAttribute("leaving", leaving);
-		request.setAttribute("logind", logind);
 		String forward = "WEB-INF/jsp/attendance.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
-		dispatcher.forward(request, response);
+		
+		//セッション情報が空ならログアウト(タイムアウト時など)
+		if(user == null) {
+			forward = "WEB-INF/jsp/logout.jsp";
+			dispatcher = request.getRequestDispatcher(forward);
+			dispatcher.forward(request, response);
+		} else {
+			//次月または前月を押した場合
+			if(changeMonth != null) {
+				year = Integer.parseInt(stringYear);
+				month = Integer.parseInt(stringMonth);
+				if(changeMonth.equals("before")) {
+					month--;
+					if(month < 0) {
+						month = 11;
+						if(year - 1 < 1) {
+							month = 0;
+						} else {
+							year--;
+						}
+					}
+				} else if(changeMonth.equals("after")) {
+					month++;
+					if(month > 11) {
+						month = 0;
+						year++;
+					}
+				}
+			}
+			
+			CalendarLogic cLogic = new CalendarLogic();
+			week = cLogic.calendarCreate(calendar, year, month); //曜日取得
+			try {
+				Attendance attendance = new Attendance();
+				admission = attendance.getAdmission(calendar, id); //出勤情報取得
+				leaving = attendance.getLeaving(calendar, id); //退勤情報取得
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+				request.setAttribute("errMessage", "システムエラーが発生しました");
+			}
+			
+			request.setCharacterEncoding("utf-8");
+			request.setAttribute("year", year);
+			request.setAttribute("month", month);
+			request.setAttribute("week", week);
+			request.setAttribute("admission", admission);
+			request.setAttribute("leaving", leaving);
+			request.setAttribute("logind", logind);
+			dispatcher.forward(request, response);
+		}
 	}
 
 }
