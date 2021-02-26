@@ -55,8 +55,15 @@
 	</form>
 	<p></p>
 	
-	<a href="/">アカウントを削除する</a>
+	
+	<form action="userSetting" method="post">
+		<input type="hidden" name="logind" value="<%= logind %>">
+		<input type="submit" name="myUsesr" value="ユーザーの設定をする">
+	</form>
 	<p></p>
-	<a href="/ManagerSystem">トップページに戻る</a>
+	
+	<form action="logout" method="get">
+		<input type="submit" name="toIndex" value="トップページに戻る">
+	</form>
 </body>
 </html>
