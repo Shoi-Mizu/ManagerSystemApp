@@ -18,8 +18,13 @@
 	   ArrayList<String> admission = (ArrayList<String>)request.getAttribute("admission");
 	   @SuppressWarnings("unchecked")
 	   ArrayList<String> leaving = (ArrayList<String>)request.getAttribute("leaving");
-	   String changeMonth = ""; 															%>
+	   String changeMonth = ""; 															
+	   String errMessage = (String)request.getAttribute("errMessage"); 						%>
 
+	<% if(errMessage != null){ %>
+		<%= errMessage %>
+	<% } %>
+	
 	<form action="home" method="post">
 		<input type="hidden" name="logind" value="<%= logind %>">
 		<button type="submit">戻る</button>
