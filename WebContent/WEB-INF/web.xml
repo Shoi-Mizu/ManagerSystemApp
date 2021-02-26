@@ -11,6 +11,11 @@
   </welcome-file-list>
 
 
+  <session-config>
+    <session-timeout>1</session-timeout>
+  </session-config>
+
+
   <servlet>
     <servlet-name>create</servlet-name>
     <servlet-class>servlet.CreateUserServlet</servlet-class>
@@ -76,6 +81,38 @@
     <url-pattern>/attendance</url-pattern>
   </servlet-mapping>
  
+ 
+  <servlet>
+    <servlet-name>logout</servlet-name>
+    <servlet-class>servlet.LogoutServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>logout</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>userSetting</servlet-name>
+    <servlet-class>servlet.UserSettingServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>userSetting</servlet-name>
+    <url-pattern>/userSetting</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>userDelete</servlet-name>
+    <servlet-class>servlet.UserDeleteServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>userDelete</servlet-name>
+    <url-pattern>/userDelete</url-pattern>
+  </servlet-mapping>
   
 </web-app>
 
