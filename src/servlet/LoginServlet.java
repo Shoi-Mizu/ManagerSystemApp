@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import model.CheckLogin;
 import model.GetUser;
+import model.TimeBean;
 import model.UserBean;
 
 
@@ -59,8 +60,10 @@ public class LoginServlet extends HttpServlet {
 			name = gUser.getUserName(id); //IDを検索してユーザー名を取得
 			UserBean uBean = new UserBean(id, name, userPass);
 			user.put(logind, uBean.getUserId()); //IDを保存
+			TimeBean tBean = new TimeBean(); //勤怠データ（空）
 			//ログイン情報をセッションに保存
 			session.setAttribute("uBean", uBean);
+			session.setAttribute("tBean", tBean);
 			session.setAttribute("user", user);
 			
 			request.setAttribute("logind", logind);
